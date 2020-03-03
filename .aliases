@@ -1,0 +1,5 @@
+# Git
+alias gstat="git status"
+alias gpull="git pull"
+alias gpush="git push"
+alias gdiff="git diff"
