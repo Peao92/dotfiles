@@ -1,5 +1,7 @@
 # Git
 alias gstat="git status"
+alias glog="git log"
 alias gpull="git pull"
 alias gpush="git push"
 alias gdiff="git diff"
+alias gstash="git stash"
