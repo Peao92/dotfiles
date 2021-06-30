@@ -1,7 +1,7 @@
 #!/bin/bash
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OLD_CONFIG="~/.old-config/$(date --iso-8601=seconds)"
+OLD_CONFIG="${HOME}/.old-config/$(date --iso-8601)"
 
 # Create backup of old configs
 mkdir -p ${OLD_CONFIG}
@@ -13,12 +13,12 @@ function createSymlink () {
         exit 1
     fi
 
-    if [[ -f "${FILE}" ]] ; then
-        echo "Provided argument is not a file"
+    if [[ ! -f "${FILE}" ]] ; then
+        echo "Provided argument ($FILE) is not a file"
         exit 1
     fi
 
-    FILE_TARGET="~/$(basename ${FILE})"
+    FILE_TARGET="${HOME}/$(basename ${FILE})"
     if [[ -f ${FILE_TARGET} ]] ; then
        OLD_CONFIG_TARGET="${OLD_CONFIG}/$(basename ${FILE})"
         echo "The target ${FILE_TARGET} already exists."
@@ -27,9 +27,11 @@ function createSymlink () {
     fi
 
     echo "Creating symlink ${FILE} -> ${FILE_TARGET}"
-    ln -s ${FILE} ${FILE_TARGET}
+    ln ${FILE} ${FILE_TARGET}
 }
 
-for f in ${BASEDIR}/../* ; do
-    createSymlink ${f}
-done
+createSymlink "$(realpath ${BASEDIR}/../.vimrc)"
+createSymlink "$(realpath ${BASEDIR}/../.ideavimrc)"
+createSymlink "$(realpath ${BASEDIR}/../.tmux.conf)"
+createSymlink "$(realpath ${BASEDIR}/../.aliases)"
+createSymlink "$(realpath ${BASEDIR}/../.gitconfig)"
