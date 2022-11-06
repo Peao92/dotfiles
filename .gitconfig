@@ -25,3 +25,5 @@
     untracked = red bold
 [push]
     default = matching
+[pull]
+    rebase = true
